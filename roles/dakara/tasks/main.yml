@@ -1,0 +1,24 @@
+---
+
+- include: install_packages.yml
+  tags: packages
+
+- include: create_users_and_groups.yml
+
+- include: setup_virtualenv.yml
+  tags: virtualenv
+
+- include: setup_from_git_repo.yml
+  tags: deploy
+
+- include: setup_django_app.yml
+  tags: deploy
+
+- include: setup_supervisor.yml
+  tags: supervisor
+
+- include: set_file_permissions.yml
+  tags: deploy
+
+- include: start_application.yml
+  tags: deploy

@@ -1,0 +1,26 @@
+---
+
+- name: Create application config file
+  template: src=local_settings.py.j2
+            dest={{ django_path }}/{{ django_project_name }}/local_settings.py
+            backup=yes
+  notify: restart application
+
+
+- name: Install packages required by the Django app inside virtualenv
+  pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
+
+- name: Run Django database migrations
+  django_manage:
+    command: migrate
+    app_path: "{{ django_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+  tags: django.migrate
+
+- name: Run Django collectstatic
+  django_manage:
+    command: collectstatic
+    app_path: "{{ django_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+  notify: restart application
+  tags: django.collectstatic

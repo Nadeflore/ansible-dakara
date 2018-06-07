@@ -1,0 +1,16 @@
+---
+
+- name: Setup the project from Git repo
+  git: repo={{ git_repo }}
+       version={{ git_branch }}
+       dest={{ project_path }}
+       accept_hostkey=yes
+  notify: restart application
+  tags: git
+
+- name: Delete all .pyc files
+  command: find . -name '*.pyc' -delete
+  args:
+    chdir: "{{ project_path }}"
+  tags: git
+  changed_when: False

@@ -1,0 +1,4 @@
+---
+
+- name: Start application
+  supervisorctl: name={{ application_name }} state=started
