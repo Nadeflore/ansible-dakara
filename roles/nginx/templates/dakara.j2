@@ -16,7 +16,7 @@ server {
 
     charset     utf-8;
 
-    #Serve django static files on /static
+    # Serve django static files on /static
     location /static {
         alias {{ nginx_static_dir }};
     }
@@ -30,9 +30,12 @@ server {
     }
 
 
-    #Finally for any other route, serve the index.html
+    # Finally for any other route, serve the index.html
     location / {
         try_files $uri /static/index.html;
     }
 
+    # Configure loggers
+    access_log {{ nginx_access_log_file }};
+    error_log {{ nginx_error_log_file }};
 }
