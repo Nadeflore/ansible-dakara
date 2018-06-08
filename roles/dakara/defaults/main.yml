@@ -1,10 +1,21 @@
 ---
+
+application_name: dakara
 project_name: dakara-server
 django_project_name: dakara_server
 project_front_name: dakara-client-web
 
-git_repo: https://github.com/DakaraProject/dakara-server.git
-git_branch: master
+# Url to the dakara-server release
+project_archive_version: "1.2.0"
+project_archive_url: https://github.com/DakaraProject/dakara-server/releases/download/{{ project_archive_version }}/dakara-server_{{ project_archive_version }}.zip
+
+# Alternatively, it's possible to build the project from the source repos
+# It takes more time to set up, requires nodejs to build the front
+# But this allows to install development versions
+#git_repo: https://github.com/DakaraProject/dakara-server.git
+#git_front_repo: https://github.com/DakaraProject/dakara-server.git
+#git_version: master
+#git_front_version: master
 
 # Virtualenv settings.
 recreate_virtualenv: no

@@ -8,6 +8,5 @@
     - nginx
 
   vars:
-    application_name: dakara
     update_apt_cache: yes
     application_hostname: example.com

@@ -1,0 +1,19 @@
+---
+
+- name: Check if this version archive already exists
+  stat:
+    path: "{{ project_path }}_{{ project_archive_version }}/"
+  register: archive
+
+- name: Download and extract project archive
+  unarchive:
+    src: "{{ project_archive_url }}"
+    dest: "{{ virtualenv_path }}"
+    remote_src: yes
+  when: archive.stat.isdir is not defined
+  notify: restart application
+
+- name: Rename project directory to the right name
+  command: cp -Tr "{{ project_path }}_{{ project_archive_version }}/" "{{ project_path }}"
+  when: archive.stat.isdir is not defined
+

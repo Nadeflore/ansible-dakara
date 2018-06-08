@@ -1,8 +1,10 @@
 ---
 
-- name: Setup the project from Git repo
+# Setup the server project
+
+- name: Clone the project from Git repo
   git: repo={{ git_repo }}
-       version={{ git_branch }}
+       version={{ git_version }}
        dest={{ project_path }}
        accept_hostkey=yes
   notify: restart application
@@ -14,3 +16,12 @@
     chdir: "{{ project_path }}"
   tags: git
   changed_when: False
+
+# Setup the front project
+
+- name: Clone the front project from Git repo
+  git: repo={{ git_front_repo }}
+       version={{ git_front_version }}
+       dest={{ project_front_path }}
+       accept_hostkey=yes
+  tags: git
