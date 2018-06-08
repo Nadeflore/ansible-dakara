@@ -1,0 +1,5 @@
+---
+
+letsencrypt_path: /etc/letsencrypt/live/{{ application_hostname }}
+ssl_certificate: "{{ letsencrypt_path }}/fullchain.pem"
+ssl_certificate_key: "{{ letsencrypt_path }}/privkey.pem"

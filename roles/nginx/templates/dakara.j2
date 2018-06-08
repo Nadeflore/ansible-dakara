@@ -1,6 +1,17 @@
+# Http on port 80 redirect to https
 server {
-
     listen      80;
+    server_name {{ application_hostname }};
+    return      301 https://$host$request_uri;
+}
+
+# Dakara server config
+server {
+    listen 443 ssl;
+
+    ssl_certificate {{ ssl_certificate }};
+    ssl_certificate_key {{ ssl_certificate_key }};
+
     server_name {{ application_hostname }};
 
     charset     utf-8;
