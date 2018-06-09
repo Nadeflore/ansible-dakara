@@ -29,6 +29,7 @@ virtualenv_path: "/webapps/{{ application_name }}"
 project_path: "{{ virtualenv_path }}/{{ project_name }}"
 django_path: "{{ project_path }}/{{ django_project_name }}"
 project_front_path: "{{ virtualenv_path }}/{{ project_front_name }}"
+config_dir: "{{ virtualenv_path  }}/config"
 application_log_dir: "{{ virtualenv_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"
@@ -49,5 +50,7 @@ nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
 nginx_static_dir: "{{ virtualenv_path }}/static/"
 
 # Django settings
+django_default_user_name: admin
+django_default_user_password: admin
 django_secret_key: "gjklhjksdghwhe;lfghaohfa;ohtpq3489fdgyt348tha;ihgtjk;asedgaiwu;egw;afgfg"
 sqlite_file_location: "{{ virtualenv_path }}"

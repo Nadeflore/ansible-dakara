@@ -1,11 +1,19 @@
 ---
 
+- name: Create config dir
+  file: path={{ config_dir }} state=directory
+
+- name: Create work types and tags config file
+  template:
+    src: worktype_tag_config.yaml.j2
+    dest: "{{ config_dir }}/worktype_tag_config.yaml"
+  register: worktype_tag_config
+
 - name: Create application config file
   template: src=local_settings.py.j2
             dest={{ django_path }}/{{ django_project_name }}/local_settings.py
             backup=yes
   notify: restart application
-
 
 - name: Install packages required by the Django app inside virtualenv
   pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
@@ -22,5 +30,21 @@
     command: collectstatic --link --noinput
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
-  notify: restart application
   tags: django.collectstatic
+
+- name: Run createworktypes and createtags commands
+  django_manage:
+    command: "{{ item }} {{ config_dir }}/worktype_tag_config.yaml"
+    app_path: "{{ django_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+  with_items:
+    - createworktypes
+    - createtags
+  when: worktype_tag_config.changed
+
+- name: Create default user
+  django_manage:
+    command: shell -c "from django.contrib.auth import get_user_model; User=get_user_model(); User.objects.count()==0 or exit(); user=User.objects.create_user('{{ django_default_user_name }}', password='{{ django_default_user_password }}'); user.is_superuser=True; user.is_staff=True;user.save()"
+    app_path: "{{ django_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+  tags: createdefaultuser
