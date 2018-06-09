@@ -9,11 +9,11 @@
   tags: virtualenv
 
 - include: setup_from_archive.yml
-  when: git_repo is not defined
+  when: not setup_from_git
   tags: deploy
 
 - include: setup_from_git_repo.yml
-  when: git_repo is defined
+  when: setup_from_git
   tags: deploy
 
 - include: setup_django_app.yml

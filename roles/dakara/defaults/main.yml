@@ -12,10 +12,12 @@ project_archive_url: https://github.com/DakaraProject/dakara-server/releases/dow
 # Alternatively, it's possible to build the project from the source repos
 # It takes more time to set up, requires nodejs to build the front
 # But this allows to install development versions
-#git_repo: https://github.com/DakaraProject/dakara-server.git
-#git_front_repo: https://github.com/DakaraProject/dakara-server.git
-#git_version: master
-#git_front_version: master
+setup_from_git: no
+git_repo: https://github.com/DakaraProject/dakara-server.git
+git_front_repo: https://github.com/DakaraProject/dakara-client-web.git
+git_version: master
+git_front_version: master
+nodejs_version: 9
 
 # Virtualenv settings.
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"

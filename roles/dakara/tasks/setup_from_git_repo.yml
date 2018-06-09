@@ -25,3 +25,51 @@
        dest={{ project_front_path }}
        accept_hostkey=yes
   tags: git
+
+- name: Install the gpg key for nodejs LTS
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+  tags:
+    - packages
+    - front
+
+- name: Install the nodejs LTS repos
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_{{ nodejs_version }}.x {{ ansible_distribution_release }} main"
+    state: present
+    update_cache: "{{ update_apt_cache }}"
+  tags:
+    - packages
+    - front
+
+- name: Install nodejs and npm
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: "{{ update_apt_cache }}"
+  with_items:
+    - nodejs
+    - npm
+  tags:
+    - packages
+    - front
+
+- name: Install javascript dependencies
+  npm:
+    path: "{{ project_front_path }}"
+  tags: front
+
+- name: Run webpack to build the front bundle
+  command: ./node_modules/.bin/webpack -p
+  args:
+    chdir: "{{ project_front_path }}"
+  tags: front
+
+- name: Link front bundle to server static folder
+  file:
+    src: "{{ project_front_path }}/dist"
+    dest: "{{ django_path }}/static"
+    state: link
+  tags: front
+

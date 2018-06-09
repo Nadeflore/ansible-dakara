@@ -10,3 +10,5 @@
   vars:
     update_apt_cache: yes
     application_hostname: example.com
+    clean_application_directory: no
+    setup_from_git: no
