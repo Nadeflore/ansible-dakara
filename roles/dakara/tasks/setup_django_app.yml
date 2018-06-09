@@ -19,7 +19,7 @@
 
 - name: Run Django collectstatic
   django_manage:
-    command: collectstatic
+    command: collectstatic --link --noinput
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
   notify: restart application
