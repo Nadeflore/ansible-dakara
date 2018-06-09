@@ -18,7 +18,7 @@
 - name: Delete application directory
   file:
     state: absent
-    path: "{{ virtualenv_path }}/"
+    path: "{{ application_path }}/"
   when: clean_application_directory
 
 - name: Create the virtualenv

@@ -3,7 +3,7 @@
 - name: Download and extract project archive
   unarchive:
     src: "{{ project_archive_url }}"
-    dest: "{{ virtualenv_path }}"
+    dest: "{{ application_path }}"
     remote_src: yes
     creates: "{{ project_path }}_{{ project_archive_version }}/"
   notify: restart application
