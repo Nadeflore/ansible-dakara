@@ -18,7 +18,6 @@ project_archive_url: https://github.com/DakaraProject/dakara-server/releases/dow
 #git_front_version: master
 
 # Virtualenv settings.
-recreate_virtualenv: no
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"
 virtualenv_python_version: "python3"
 
@@ -31,6 +30,7 @@ project_front_path: "{{ virtualenv_path }}/{{ project_front_name }}"
 application_log_dir: "{{ virtualenv_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"
+clean_application_directory: no
 
 
 # Gunicorn settings.
@@ -46,5 +46,6 @@ nginx_access_log_file: "{{ application_log_dir }}/nginx_access.log"
 nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
 nginx_static_dir: "{{ virtualenv_path }}/static/"
 
+# Django settings
 django_secret_key: "gjklhjksdghwhe;lfghaohfa;ohtpq3489fdgyt348tha;ihgtjk;asedgaiwu;egw;afgfg"
 sqlite_file_location: "{{ virtualenv_path }}"
