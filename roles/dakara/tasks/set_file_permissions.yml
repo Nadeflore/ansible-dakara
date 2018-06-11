@@ -9,7 +9,7 @@
   changed_when: false
 
 - name: Ensure that the database file permissions are set properly
-  file: path={{ sqlite_file_location }}
+  file: path={{ django_sqlite_file_path }}
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         mode=0600

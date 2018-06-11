@@ -54,5 +54,5 @@ nginx_static_dir: "{{ application_path }}/static/"
 django_default_user_name: admin
 django_default_user_password: admin
 django_secret_key: "gjklhjksdghwhe;lfghaohfa;ohtpq3489fdgyt348tha;ihgtjk;asedgaiwu;egw;afgfg"
-sqlite_file_location: "{{ application_path }}"
+django_sqlite_file_path: "{{ application_path }}/db.sqlite3"
 django_log_file: "{{ application_log_dir }}/django.log"
