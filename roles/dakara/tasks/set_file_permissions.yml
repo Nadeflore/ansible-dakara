@@ -6,4 +6,12 @@
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         state=directory
-  changed_when: False
+  changed_when: false
+
+- name: Ensure that the database file permissions are set properly
+  file: path={{ sqlite_file_location }}
+        owner={{ gunicorn_user }}
+        group={{ gunicorn_group }}
+        mode=0600
+        state=file
+  changed_when: false
