@@ -42,7 +42,7 @@ gunicorn_user: "{{ application_name }}"
 gunicorn_group: webapps
 gunicorn_socket_file: "{{ application_path }}/run/gunicorn.sock"
 gunicorn_max_requests: 0
-gunicorn_num_workers: 3
+gunicorn_num_workers: 1
 
 
 # Nginx settings.
