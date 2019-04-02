@@ -1,12 +1,9 @@
 ---
 
 - name: Install required packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
-  with_items:
-    - git
-    - "{{ base_python_package }}-pip"
-    - "i{{ base_python_package }}"
-    - supervisor
-    - unzip
+  apt: 
+    name: ['git', '{{ base_python_package }}-pip', 'i{{ base_python_package }}', 'supervisor', 'unzip']
+    update_cache: '{{ update_apt_cache }}'
+    state: present
   tags:
     - packages
