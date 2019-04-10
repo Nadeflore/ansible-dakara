@@ -18,18 +18,16 @@ echo "Starting $NAME as `whoami`"
 cd $DJANGODIR
 . {{ virtualenv_path }}/bin/activate
 
+# Set additional environment variables.
+. {{ virtualenv_path }}/bin/postactivate
+
 # Create the run directory if it doesn't exist.
 RUNDIR=$(dirname $SOCKFILE)
 test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
-exec gunicorn \
-    --name $NAME \
-    --workers $NUM_WORKERS \
-    --max-requests $MAX_REQUESTS \
-    --timeout {{ gunicorn_timeout_seconds|default(30) }} \
-    --user $USER --group $GROUP \
-    --log-level debug \
-    --bind unix:$SOCKFILE \
-    {{ django_project_name }}.wsgi
+exec daphne \
+    --u $SOCKFILE \
+    --access-log - \
+    {{ django_project_name }}.asgi:application

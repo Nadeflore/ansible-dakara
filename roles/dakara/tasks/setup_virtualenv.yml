@@ -25,14 +25,14 @@
   command: virtualenv -p {{ virtualenv_python_version }} {{ virtualenv_path }}
            creates={{ virtualenv_path }}/bin/activate
 
-- name: Ensure gunicorn is installed in the virtualenv
+- name: Ensure Daphne is installed in the virtualenv
   pip:
       virtualenv: '{{ virtualenv_path }}'
-      name: ['gunicorn']
+      name: ['daphne==2.2.5']
 
-- name: Create the Gunicorn script file
-  template: src=gunicorn_start.j2
-            dest={{ virtualenv_path }}/bin/gunicorn_start
+- name: Create the Daphne script file
+  template: src=daphne_start.j2
+            dest={{ virtualenv_path }}/bin/daphne_start
             owner={{ gunicorn_user }}
             group={{ gunicorn_group }}
             mode=0755
@@ -53,3 +53,13 @@
         group={{ gunicorn_group }}
         mode=0664
         force=no
+
+- name: Create the virtualenv postactivate script to set environment variables
+  template: src=virtualenv_postactivate.j2
+            dest={{ virtualenv_path }}/bin/postactivate
+            owner={{ gunicorn_user }}
+            group={{ gunicorn_group }}
+            mode=0640
+            backup=yes
+  notify: restart application
+  tags: deploy

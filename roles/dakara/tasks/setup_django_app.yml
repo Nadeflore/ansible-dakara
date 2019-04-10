@@ -10,8 +10,8 @@
   register: worktype_tag_config
 
 - name: Create application config file
-  template: src=local_settings.py.j2
-            dest={{ django_path }}/{{ django_project_name }}/local_settings.py
+  template: src=django_config_env.j2
+            dest={{ django_path }}/{{ django_project_name }}/.env
             backup=yes
   notify: restart application
 
@@ -23,6 +23,7 @@
     command: migrate
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
+  environment: "{{ django_environment }}"
   tags: django.migrate
 
 - name: Run Django collectstatic
@@ -30,6 +31,7 @@
     command: collectstatic --link --noinput
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
+  environment: "{{ django_environment }}"
   tags: django.collectstatic
 
 - name: Run createworktypes and createtags commands
@@ -40,6 +42,7 @@
   with_items:
     - createworktypes
     - createtags
+  environment: "{{ django_environment }}"
   when: worktype_tag_config.changed
 
 - name: Create default user
@@ -47,4 +50,5 @@
     command: shell -c "from django.contrib.auth import get_user_model; User=get_user_model(); User.objects.count()==0 or exit(); user=User.objects.create_user('{{ django_default_user_name }}', password='{{ django_default_user_password }}'); user.is_superuser=True; user.is_staff=True;user.save()"
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
+  environment: "{{ django_environment }}"
   tags: createdefaultuser

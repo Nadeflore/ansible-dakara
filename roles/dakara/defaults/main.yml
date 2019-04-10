@@ -56,3 +56,6 @@ django_default_user_password: admin
 django_secret_key: "gjklhjksdghwhe;lfghaohfa;ohtpq3489fdgyt348tha;ihgtjk;asedgaiwu;egw;afgfg"
 django_sqlite_file_path: "{{ application_path }}/db.sqlite3"
 django_log_file: "{{ application_log_dir }}/django.log"
+django_settings_file: "{{ django_project_name }}.settings.production"
+django_environment:
+    DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
