@@ -33,32 +33,32 @@
 - name: Create the Daphne script file
   template: src=daphne_start.j2
             dest={{ virtualenv_path }}/bin/daphne_start
-            owner={{ gunicorn_user }}
-            group={{ gunicorn_group }}
+            owner={{ daphne_user }}
+            group={{ daphne_group }}
             mode=0755
             backup=yes
   tags: deploy
 
 - name: Create the application log folder
   file: path={{ application_log_dir }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
+        owner={{ daphne_user }}
+        group={{ daphne_group }}
         mode=0774
         state=directory
 
 - name: Create (or retain) the application log file
   copy: content=""
         dest={{ application_log_file }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
+        owner={{ daphne_user }}
+        group={{ daphne_group }}
         mode=0664
         force=no
 
 - name: Create the virtualenv postactivate script to set environment variables
   template: src=virtualenv_postactivate.j2
             dest={{ virtualenv_path }}/bin/postactivate
-            owner={{ gunicorn_user }}
-            group={{ gunicorn_group }}
+            owner={{ daphne_user }}
+            group={{ daphne_group }}
             mode=0640
             backup=yes
   notify: restart application

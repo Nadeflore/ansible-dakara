@@ -3,15 +3,15 @@
 - name: Ensure that the application file permissions are set properly
   file: path={{ application_path }}
         recurse=yes
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
+        owner={{ daphne_user }}
+        group={{ daphne_group }}
         state=directory
   changed_when: false
 
 - name: Ensure that the database file permissions are set properly
   file: path={{ django_sqlite_file_path }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
+        owner={{ daphne_user }}
+        group={{ daphne_group }}
         mode=0600
         state=file
   changed_when: false

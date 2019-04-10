@@ -23,7 +23,7 @@ server {
 
     # Send api requests to the Django server.
     location ~ ^/(api|ws) {
-        proxy_pass http://unix:{{ gunicorn_socket_file }};
+        proxy_pass http://unix:{{ daphne_socket_file }};
 
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;

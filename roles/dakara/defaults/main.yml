@@ -32,17 +32,17 @@ django_path: "{{ project_path }}/{{ django_project_name }}"
 project_front_path: "{{ application_path }}/{{ project_front_name }}"
 config_dir: "{{ application_path }}/config"
 application_log_dir: "{{ application_path }}/logs"
-application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
+application_log_file: "{{ application_log_dir }}/daphne_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"
 clean_application_directory: no
 
 
 # Gunicorn settings.
-gunicorn_user: "{{ application_name }}"
-gunicorn_group: webapps
-gunicorn_socket_file: "{{ application_path }}/run/gunicorn.sock"
-gunicorn_max_requests: 0
-gunicorn_num_workers: 1
+daphne_user: "{{ application_name }}"
+daphne_group: webapps
+daphne_socket_file: "{{ application_path }}/run/daphne.sock"
+daphne_max_requests: 0
+daphne_num_workers: 1
 
 
 # Nginx settings.
