@@ -6,7 +6,7 @@ django_project_name: dakara_server
 project_front_name: dakara-client-web
 
 # Url to the dakara-server release
-project_archive_version: "1.2.0"
+project_archive_version: "1.6.0"
 project_archive_url: https://github.com/DakaraProject/dakara-server/releases/download/{{ project_archive_version }}/dakara-server_{{ project_archive_version }}.zip
 
 # Alternatively, it's possible to build the project from the source repos
@@ -17,7 +17,7 @@ git_repo: https://github.com/DakaraProject/dakara-server.git
 git_front_repo: https://github.com/DakaraProject/dakara-client-web.git
 git_version: master
 git_front_version: master
-nodejs_version: 9
+nodejs_version: 14
 
 # Virtualenv settings.
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"

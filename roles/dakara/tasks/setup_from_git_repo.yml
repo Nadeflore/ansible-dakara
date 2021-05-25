@@ -45,7 +45,7 @@
 
 - name: Install nodejs and npm
   apt:
-    name: ['nodejs', 'npm']
+    name: nodejs
     state: present
     update_cache: "{{ update_apt_cache }}"
   tags:
@@ -53,19 +53,26 @@
     - front
 
 - name: Install javascript dependencies
-  npm:
-    path: "{{ project_front_path }}"
-  tags: front
-
-- name: Run webpack to build the front bundle
-  command: ./node_modules/.bin/webpack -p
+  command: npm ci
   args:
     chdir: "{{ project_front_path }}"
   tags: front
 
+- name: Build the front bundle
+  command: npm run build
+  args:
+    chdir: "{{ project_front_path }}"
+  tags: front
+
+- name: Move index to static folder
+  command: mv index.html static
+  args:
+    chdir: "{{ project_front_path }}/build"
+  tags: front
+
 - name: Link front bundle to server static folder
   file:
-    src: "{{ project_front_path }}/dist"
+    src: "{{ project_front_path }}/build/static"
     dest: "{{ django_path }}/static"
     state: link
   tags: front

@@ -12,3 +12,12 @@
     application_hostname: example.com
     clean_application_directory: no
     setup_from_git: no
+    project_archive_version: 1.7.0
+    git_version: develop
+    git_front_version: develop
+    email_host: smtp.gmail.com
+    email_port: 587
+    email_user: test@example.com
+    email_password: password
+    email_use_tls: true
+    email_use_ssl: false
