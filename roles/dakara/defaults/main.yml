@@ -59,3 +59,4 @@ django_log_file: "{{ application_log_dir }}/django.log"
 django_settings_file: "{{ django_project_name }}.settings.production"
 django_environment:
     DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
+    HOST_URL: "https://{{ application_hostname }}"

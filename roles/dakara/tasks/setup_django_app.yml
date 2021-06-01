@@ -47,7 +47,7 @@
 
 - name: Create default user
   django_manage:
-    command: shell -c "from django.contrib.auth import get_user_model; User=get_user_model(); User.objects.count()==0 or exit(); user=User.objects.create_user('{{ django_default_user_name }}', password='{{ django_default_user_password }}'); user.is_superuser=True; user.is_staff=True;user.save()"
+    command: shell -c "from django.contrib.auth import get_user_model; User=get_user_model(); User.objects.count()==0 or exit(); user=User.objects.create_user('{{ django_default_user_name }}', email='{{ email_user }}', password='{{ django_default_user_password }}', is_superuser=True, is_staff=True)"
     app_path: "{{ django_path }}"
     virtualenv: "{{ virtualenv_path }}"
   environment: "{{ django_environment }}"
